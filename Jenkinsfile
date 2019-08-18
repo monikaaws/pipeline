@@ -1,33 +1,40 @@
-pipeline{
-agent any
-stages{
-stage('one'){
-steps{
-echo "this is build stage"
-}
-stage('two'){
-steps{
-input("do you want to proceed")
-}
-stage('three'){
-steps{
-when{
-not{
-branch "master"
-}
-}
-steps{
-echo "hello"
-}
-}
-}
-stage('four'){
-parallel{
-stage('unit test'){
-steps{
-echo "running unit test"
-}
-}
-}
+pipeline {
+         agent any
+         stages {
+                 stage('One') {
+                 steps {
+                     echo 'Hi, this is Zulaikha from edureka'
+                 }
+                 }
+                 stage('Two') {
+                 steps {
+                    input('Do you want to proceed?')
+                 }
+                 }
+                 stage('Three') {
+                 when {
+                       not {
+                            branch "master"
+                       }
+                 }
+                 steps {
+                       echo "Hello"
+                 }
+                 }
+                 stage('Four') {
+                 parallel { 
+                            stage('Unit Test') {
+                           steps {
+                                echo "Running the unit test..."
+                           }
+                           }
+                            stage('Integration test') {
+                              steps {
+                                echo "Running the integration test..."
+                              }
+                           }
+                           }
+                           }
+              }
 }
 
